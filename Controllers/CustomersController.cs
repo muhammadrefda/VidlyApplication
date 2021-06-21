@@ -26,14 +26,18 @@ namespace VidlyApplication.Controllers
         public ActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
+
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
+
             return View("CustomerForm",viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
 
         {
@@ -47,6 +51,7 @@ namespace VidlyApplication.Controllers
 
                 return View("CustomerForm", viewModel);
             }
+
             if (customer.Id == 0)
                 _context.Customers.Add(customer);
             else
@@ -59,6 +64,7 @@ namespace VidlyApplication.Controllers
 
             }
             _context.SaveChanges();
+
             return RedirectToAction("Index", "Customers");
         }
 
