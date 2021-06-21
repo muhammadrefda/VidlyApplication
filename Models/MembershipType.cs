@@ -15,5 +15,8 @@ namespace VidlyApplication.Models
         [Required]
         public string Name { get; set; }
 
+        public static readonly byte Unknown = 0;
+        public static readonly byte PayAsYouGo = 1;
+
     }
 }
